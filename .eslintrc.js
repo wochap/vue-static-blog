@@ -4,6 +4,13 @@ module.exports = {
   parserOptions: {
     sourceType: 'module'
   },
+  settings: {
+    'import/resolver': {
+      'webpack': {
+        'config': 'build/webpack.dev.conf.js'
+      }
+    }
+  },
   // https://github.com/feross/standard/blob/master/RULES.md#javascript-standard-style
   extends: 'standard',
   // required to lint *.vue files

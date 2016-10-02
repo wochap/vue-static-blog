@@ -10,7 +10,19 @@ var env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : config.build.env
 
+var StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin');
+var routes = require('../src/build-config/routes')
+console.log('Routes to build: ', routes, '\n')
+
+// remove app entry point
+baseWebpackConfig.entry = {}
+
 var webpackConfig = merge(baseWebpackConfig, {
+  // necessary for 'vue-server-renderer' works
+  target: 'node',
+  entry: {
+    static: './src/app/static-entry.js'
+  },
   module: {
     loaders: utils.styleLoaders({ sourceMap: config.build.productionSourceMap, extract: true })
   },
@@ -18,7 +30,9 @@ var webpackConfig = merge(baseWebpackConfig, {
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].js'),
-    chunkFilename: utils.assetsPath('js/[id].js')
+    chunkFilename: utils.assetsPath('js/[id].js'),
+    // necessary for 'vue-server-renderer' and 'static-site-generator-webpack-plugin' works
+    libraryTarget: 'commonjs2'
   },
   vue: {
     loaders: utils.cssLoaders({
@@ -77,7 +91,8 @@ var webpackConfig = merge(baseWebpackConfig, {
     // new webpack.optimize.CommonsChunkPlugin({
     //   name: 'manifest',
     //   chunks: ['vendor']
-    // })
+    // }),
+    new StaticSiteGeneratorPlugin('static', routes)
   ]
 })
 

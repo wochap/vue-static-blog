@@ -5,7 +5,7 @@ var projectRoot = path.resolve(__dirname, '../')
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './src/app/client-entry.js'
   },
   output: {
     path: config.build.assetsRoot,
@@ -16,14 +16,20 @@ module.exports = {
     extensions: ['', '.js', '.vue'],
     fallback: [path.join(__dirname, '../node_modules')],
     alias: {
-      'vue': 'vue/dist/vue.common.js',
       'src': path.resolve(__dirname, '../src'),
+      'app': path.resolve(__dirname, '../src/app'),
       'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
-    }
+      'styles': path.resolve(__dirname, '../src/styles')
+    },
+    modulesDirectories: ['node_modules', 'shared']
   },
   resolveLoader: {
-    fallback: [path.join(__dirname, '../node_modules')]
+    fallback: [path.join(__dirname, '../node_modules')],
+    // register custom markdown + highlight loader
+    alias: {
+      'markdown-highlight-loader': path.join(__dirname, './markdown-highlight-loader'),
+      'front-matter-loader': path.join(__dirname, './front-matter-loader')
+    }
   },
   module: {
     preLoaders: [
@@ -70,6 +76,10 @@ module.exports = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
+      },
+      {
+        test: /\.md$/,
+        loader: 'markdown-highlight-loader'
       }
     ]
   },
