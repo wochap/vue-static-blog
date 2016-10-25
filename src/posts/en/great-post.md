@@ -3,20 +3,8 @@ title: Great post
 date: 2016-09-01
 ---
 
-# Great post
-
-asdasd
-sadsd
-
-sdsd
-
 ```js
-var a = 'yeahh'
+var a = 'cool'
 
-console.log('yeahh')
+console.log(a)
 ```
-
-<div>asdsa<div>
-<script>
-window.alert('dsad')
-</script>

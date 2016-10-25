@@ -1,8 +1,14 @@
-# wochap.github.io
+# Vue static blog
 
 ## ¿Como funciona?
 
-Basicamente usamos el plugin [static-site-generator-webpack-plugin](https://github.com/markdalgleish/static-site-generator-webpack-plugin)que recibe el html generado por [vue-server-renderer](https://www.npmjs.com/package/vue-server-renderer), todo esto con webpack targeteado para `node`.
+### En desarrollo
+
+Usamos [HMR](https://webpack.github.io/docs/hot-module-replacement.html) para que la aplicación se actualize sin refrescar la ventana.
+
+### En producción
+
+Usamos el plugin [static-site-generator-webpack-plugin](https://github.com/markdalgleish/static-site-generator-webpack-plugin) que recibe el html generado por [vue-server-renderer](https://www.npmjs.com/package/vue-server-renderer), todo esto con webpack targeteado para `node`.
 
 Una vez se carge en el cliente, vue `hidratara` el existente `DOM`, en vez de crear nuevos `DOM nodes`.
 
